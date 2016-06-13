@@ -62,15 +62,8 @@ def print_menu(title, list_options, exit_message):
 # @inputs: list of string - list of the received values from the user
 def get_inputs(list_labels, title):
     inputs = []
-    if title == hr:
-        input1 = generate_random(title)
-        input2 = input("Add name:")
-        input3 = input("Birth date")
-    inputs += input1
-    inputs += input2
-    inputs += input3
+    inputs = input(list_labes":")
     # your code
-
     return inputs
 
 
