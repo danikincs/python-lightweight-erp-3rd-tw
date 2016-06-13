@@ -23,8 +23,46 @@ common = SourceFileLoader("common", current_file_path + "/../common.py").load_mo
 # user need to go back to the main menu from here
 # we need to reach the default and the special functions of this module from the module menu
 #
-def start_module():
+table = ''
+title = ''
+list_options = ''
 
+
+def handle_menu():
+    options = ["1: Show table",
+               "2: Add to table",
+               "3: Remove from table",
+               "4: Update table",
+               "5: Available kinds of games by manufacturers",
+               "6: Avarega amount of games by manufacturers"]
+
+    ui.print_menu("Store manager", options, "0: Back to main menu")
+
+
+def start_module():
+    handle_menu()
+    inputs = ui.get_inputs(["Please enter a number: "], "")
+    option = inputs[0]
+    table = data_manager.get_table_from_file("store/games.csv")
+    try:
+        if option == "1":
+            show_table(table)
+        elif option == "2":
+            add(table)
+        elif option == "3":
+            remove(table, id_)
+        elif option == "4":
+            update(table, id_)
+        elif option == "5":
+            get_counts_by_manufacturers(table)
+        elif option == "6":
+            get_average_by_manufacturer(table)
+        elif option == "0":
+            ui.print_menu(title, list_options, exit_message)
+        else:
+            raise KeyError("There is no such option.")
+    except KeyError as err:
+        ui.print_error_message(err)
     # you code
 
     pass
@@ -34,9 +72,9 @@ def start_module():
 #
 # @table: list of lists
 def show_table(table):
-
+    title_list = ['id', 'title', 'manufacturer', 'price', 'in_stock']
+    ui.print_table(table, title_list)
     # your code
-
     pass
 
 
