@@ -41,7 +41,8 @@ def start_module():
         elif option == "2":
             add(table)
         elif option == "3":
-            remove()
+            id_ = ui.get_inputs("Enter what you want to delete:", "")
+            remove(table, id_)
         elif option == "4":
             update()
         elif option == "5":
@@ -79,12 +80,18 @@ def add(table):
     table.append(added_items)
     show_table(table)
 
+    return table
+
 
 # Remove the record having the id @id_ from the @list, than return @table
 #
 # @table: list of lists
 # @id_: string
 def remove(table, id_):
+    for sublist in table:
+        if id_ in sublist:
+            table.remove(sublist[:])
+    show_table(table)
 
     # your code
 
