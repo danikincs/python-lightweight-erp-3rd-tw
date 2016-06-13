@@ -14,7 +14,8 @@ from common import generate_random
 
 def print_table(table, title_list):
     print(title_list)
-    print(table)
+    for sublist in table:
+        print(sublist)
 
     pass
 
@@ -45,7 +46,8 @@ def print_result(result, label):
 # @exit_message: string - the last option with (0) (example: "Back to main menu")
 def print_menu(title, list_options, exit_message):
     print(title)
-    print(list_options)
+    for items in list_options:
+        print(items)
     print(exit_message)
 
     # your code
