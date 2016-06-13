@@ -17,6 +17,7 @@ ui = SourceFileLoader("ui", current_file_path + "/../ui.py").load_module()
 data_manager = SourceFileLoader("data_manager", current_file_path + "/../data_manager.py").load_module()
 # common module
 common = SourceFileLoader("common", current_file_path + "/../common.py").load_module()
+table = data_manager.get_table_from_file("tool_manager/tools.csv")
 
 
 # start this module by a module menu like the main menu
@@ -24,7 +25,6 @@ common = SourceFileLoader("common", current_file_path + "/../common.py").load_mo
 # we need to reach the default and the special functions of this module from the module menu
 #
 def start_module():
-    table = data_manager.get_table_from_file("tool_manager/tools.csv")
     options = ["Print default records",
                "Add new record",
                "Remove record by id",
@@ -39,7 +39,7 @@ def start_module():
         if option == "1":
             show_table(table)
         elif option == "2":
-            add()
+            add(table)
         elif option == "3":
             remove()
         elif option == "4":
@@ -73,10 +73,11 @@ def show_table(table):
 #
 # @table: list of lists
 def add(table):
-
-    # your code
-
-    return table
+    added_item = ui.get_inputs("Enter what you want to add:", "")
+    added_items = added_item.split(",")
+    added_items.insert(0, common.generate_random(table))
+    table.append(added_items)
+    show_table(table)
 
 
 # Remove the record having the id @id_ from the @list, than return @table
