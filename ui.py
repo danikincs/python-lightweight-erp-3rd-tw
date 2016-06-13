@@ -1,5 +1,4 @@
-
-
+from common import generate_random
 # This function needs to print outputs like this:
 # /-----------------------------------\
 # |   id   |      title     |  type   |
@@ -11,9 +10,11 @@
 #
 # @table: list of lists - the table to print out
 # @title_list: list of strings - the head of the table
-def print_table(table, title_list):
 
-    # your code
+
+def print_table(table, title_list):
+    print(title_list)
+    print(table)
 
     pass
 
@@ -43,6 +44,9 @@ def print_result(result, label):
 # @list_options: list of strings - the options in the menu
 # @exit_message: string - the last option with (0) (example: "Back to main menu")
 def print_menu(title, list_options, exit_message):
+    print(title)
+    print(list_options)
+    print(exit_message)
 
     # your code
 
@@ -56,7 +60,13 @@ def print_menu(title, list_options, exit_message):
 # @inputs: list of string - list of the received values from the user
 def get_inputs(list_labels, title):
     inputs = []
-
+    if title == hr:
+        input1 = generate_random(title)
+        input2 = input("Add name:")
+        input3 = input("Birth date")
+    inputs += input1
+    inputs += input2
+    inputs += input3
     # your code
 
     return inputs
@@ -66,6 +76,7 @@ def get_inputs(list_labels, title):
 #
 # @message: string - the error message
 def print_error_message(message):
+    print(message)
 
     # your code
 
