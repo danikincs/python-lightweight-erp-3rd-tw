@@ -13,6 +13,7 @@ from common import generate_random
 
 
 def print_table(table, title_list):
+    columns = len(title_list)
     print(title_list)
     for sublist in table:
         print(sublist)
@@ -62,7 +63,7 @@ def print_menu(title, list_options, exit_message):
 # @inputs: list of string - list of the received values from the user
 def get_inputs(list_labels, title):
     inputs = []
-    inputs = input(list_labes":")
+    inputs = input(list_labels)
     # your code
     return inputs
 
