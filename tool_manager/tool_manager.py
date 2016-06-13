@@ -44,7 +44,8 @@ def start_module():
             id_ = ui.get_inputs("Enter what you want to delete:", "")
             remove(table, id_)
         elif option == "4":
-            update()
+            id_ = ui.get_inputs("Enter what you want to update(id):", "")
+            update(table, id_)
         elif option == "5":
             get_available_tools()
         elif option == "6":
@@ -104,6 +105,14 @@ def remove(table, id_):
 # @table: list of lists
 # @id_: string
 def update(table, id_):
+    added_item = ui.get_inputs("Enter what you want to update:", "")
+    for sublist in table:
+        if id_ in sublist:
+            table.remove(sublist[:])
+            added_items = added_item.split(",")
+            added_items.insert(0, id_)
+            table.append(added_items)
+    show_table(table)
 
     # your code
 
