@@ -24,18 +24,47 @@ common = SourceFileLoader("common", current_file_path + "/../common.py").load_mo
 # we need to reach the default and the special functions of this module from the module menu
 #
 def start_module():
+    table = data_manager.get_table_from_file("tool_manager/tools.csv")
+    options = ["Print default records",
+               "Add new record",
+               "Remove record by id",
+               "Update record by id",
+               "Avalible tools",
+               "Customers subscribed to the newsletter"]
 
-    # you code
-
+    ui.print_menu("Customer relationship management (CRM)", options, "0: Return to main menu")
+    inputs = ui.get_inputs("Please enter a number: ", "")
+    option = inputs[0]
+    try:
+        if option == "1":
+            show_table(table)
+        elif option == "2":
+            add()
+        elif option == "3":
+            remove()
+        elif option == "4":
+            update()
+        elif option == "5":
+            get_available_tools()
+        elif option == "6":
+            get_average_durability_by_manufacturers()
+        elif option == "0":
+            main.main()
+        else:
+            raise KeyError("There is no such option.")
+    except KeyError as err:
+        ui.print_error_message(err)
     pass
-
 
 # print the default table of records from the file
 #
 # @table: list of lists
-def show_table(table):
 
-    # your code
+
+def show_table(table):
+    title_list = ['id', 'name', 'manufacturer', 'purchase_date', 'durability']
+    ui.print_table(table, title_list)
+    start_module()
 
     pass
 
