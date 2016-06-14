@@ -109,14 +109,14 @@ def update(table, id_):
 # the question: What is the id of the customer with the longest name ?
 # return type: string (id) - if there are more than one longest name, return the first of descending alphabetical order
 def get_longest_name_id(table):
-    name_lengths = []
+    max_name_length = 0
     longest_names = []
     for i in table:
-        name_lengths.append(len(i[1]))
-    max_name_length = max(name_lengths)
-    for i, j in enumerate(name_lengths):
-        if max_name_length == j:
-            longest_names.append(table[i][1])
+        if len(i[1]) > max_name_length:
+            max_name_length = len(i[1])
+    for i in table:
+        if max_name_length == len(i[1]):
+            longest_names.append(i[1])
     first_longest_name = min(longest_names)
     for i in table:
         if first_longest_name in i:
