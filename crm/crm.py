@@ -41,9 +41,9 @@ def start_module():
             elif option == "2":
                 add(table)
             elif option == "3":
-                remove(table, id_=ui.get_inputs("Please enter the id of the record you'd like to remove: ", ""))
+                remove(table, id_=ui.get_inputs("Enter the id of the record you'd like to remove: ", ""))
             elif option == "4":
-                update(table, id_=ui.get_inputs("Please enter the id of the record you'd like to update: ", ""))
+                update(table, id_=ui.get_inputs("Enter the id of the record you'd like to update: ", ""))
             elif option == "5":
                 get_longest_name_id(table)
             elif option == "6":
@@ -97,7 +97,7 @@ def remove(table, id_):
 # @id_: string
 def update(table, id_):
 
-    update_the_table(table, "crm/customers_test.csv", id_)
+    common.update_the_table(table, "crm/customers_test.csv", id_)
 
     return table
 
@@ -121,13 +121,17 @@ def get_longest_name_id(table):
     for i in table:
         if first_longest_name in i:
             ui.print_result(i[0], "ID of the longest (alphabetical first, if there's more than one) name:")
+            return i[0]
     pass
 
 
 # the question: Which customers has subscribed to the newsletter?
 # return type: list of string (where string is like email+separator+name, separator=";")
 def get_subscribed_emails(table):
-
-    # your code
-
+    subscribers = []
+    for i in table:
+        if i[3] == "0":
+            subscribers.append("{0};{1}".format(i[2], i[1]))
+    ui.print_result(subscribers, "Names and emails of newsletter subscribers")
+    return subscribers
     pass
