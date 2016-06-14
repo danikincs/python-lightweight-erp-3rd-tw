@@ -11,10 +11,52 @@
 # @title_list: list of strings - the head of the table
 
 
+def sum_table_width(col_width):
+    table_width = 0
+    for i in col_width:
+        table_width += i
+    return table_width
+
+
+def column_width(table):
+    col_width = [0] * len(table[0])
+    for row in table:
+        i = 0
+        for element in row:
+            if len(str(element)) > col_width[i]:
+                col_width[i] = len(str(element))
+            i += 1
+    return col_width
+
+
 def print_table(table, title_list):
-    print(title_list)
-    for sublist in table:
-        print(sublist)
+    table.insert(0, title_list)
+    col_width = column_width(table)
+    tw = sum_table_width(col_width)
+    print('/{0:-^{w}}'.format('-', w=tw + len(col_width)-1), end="\\\n")
+    for i, row in enumerate(table, start=1):
+        for j, element in enumerate(row, start=1):
+            if j < len(row):
+                print('|{0:^{w}}'.format(element, w=col_width[j-1]), end="")
+            elif j == len(row):
+                print('|{0:^{w}}'.format(element, w=col_width[j-1]), end="|\n")
+        if i < len(table):
+            for j, element in enumerate(row, start=1):
+                if j < len(row):
+                    print('|{0:-^{w}}'.format('-', w=col_width[j-1]), end="")
+                elif j == len(row):
+                    print('|{0:-^{w}}'.format('-', w=col_width[j-1]), end="|\n")
+    print('\{0:-^{w}}'.format('-', w=tw + len(col_width)-1), end="/\n")
+
+
+    # for element in title_list:
+    #
+    # for row in table:
+    #     for i, element in row:
+
+    # print(title_list)
+    # for sublist in table:
+    #     print(sublist)
     # for sublist in table:
     #     max_lenght = ""
     #     for i in sublist:
