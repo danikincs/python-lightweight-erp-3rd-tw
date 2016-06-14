@@ -50,7 +50,7 @@ def start_module():
         elif option == "5":
             get_available_tools(table)
         elif option == "6":
-            get_average_durability_by_manufacturers()
+            get_average_durability_by_manufacturers(table)
         elif option == "0":
             main.main()
         else:
@@ -142,7 +142,56 @@ def get_available_tools(table):
 #
 # @table: list of lists
 def get_average_durability_by_manufacturers(table):
-
-    # your code
+    # manufacturers = []
+    # for sublist in table:
+    #     if sublist[2] not in manufacturers:
+    #         manufacturers.append(sublist[2])
+    # print(manufacturers)
+    # manufacturer_1 = []
+    # manufacturer_2 = []
+    # manufacturer_3 = []
+    # result = {}
+    # for sublist in table:
+    #
+    #     # for i in manufacturers:
+    #     #     if i in sublist:
+    #     #         if manufacturers not in manufacturer_2:
+    #     #             manufacturer_2.append(sublist[4])
+    #     # for i in manufacturers:
+    #     #     if i in sublist:
+    #     #         if manufacturers not in manufacturer_2:
+    #     #             manufacturer_2.append(sublist[4])
+    # print(manufacturer_1)
+    # sony_avarage = {"Sony": 0}
+    # s_b = 0
+    # s_a = 0
+    # for elem in sony:
+    #     s_a += int(elem)
+    #     s_b += 1
+    # s_a = s_a / s_b
+    # sony_avarage["Sony"] = float(s_a)
+    # microsoft_avarage = {"Microsoft": 0}
+    # m_b = 0
+    # m_a = 0
+    # for elem in microsoft:
+    #     m_a += int(elem)
+    #     m_b += 1
+    # m_a = m_a / m_b
+    # microsoft_avarage["Microsoft"] = float(m_a)
+    # nintendo_avarage = {"Nintendo": 0}
+    # n_b = 0
+    # n_a = 0
+    # for elem in nintendo:
+    #     n_a += int(elem)
+    #     n_b += 1
+    # n_a = n_a / n_b
+    # nintendo_avarage["Nintendo"] = n_a
+    # result.update(sony_avarage)
+    # result.update(nintendo_avarage)
+    # result.update(microsoft_avarage)
+    #
+    # print(result)
+    # return result
+    # # your code
 
     pass
