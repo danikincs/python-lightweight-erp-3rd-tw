@@ -121,4 +121,3 @@ def get_items_sold_between(table, month_from, day_from, year_from, month_to, day
     # your code
 
     pass
-Status API Training Shop Blog About
