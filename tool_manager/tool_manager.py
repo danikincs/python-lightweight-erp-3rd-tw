@@ -48,7 +48,7 @@ def start_module():
             id_ = ui.get_inputs("Enter what you want to update(id):", "")
             update(table, id_)
         elif option == "5":
-            get_available_tools()
+            get_available_tools(table)
         elif option == "6":
             get_average_durability_by_manufacturers()
         elif option == "0":
@@ -97,7 +97,7 @@ def remove(table, id_):
 # @table: list of lists
 # @id_: string
 def update(table, id_):
-    update_the_table(table, "tool_manager/tools.csv", id_)
+    common.update_the_table(table, "tool_manager/tools.csv", id_)
 
     return table
 
@@ -110,10 +110,31 @@ def update(table, id_):
 #
 # @table: list of lists
 def get_available_tools(table):
+    date = []
+    remain_year = []
+    for sublist in table:
+        date.append(int(sublist[3]))
+    for sublist in table:
+        remain_year.append(int(sublist[4]))
+    sum_year = [x + y for x, y in zip(date, remain_year)]
+    number = []
+    a = 0
+    avalible = []
+    line = 1
+    result = []
+    # print(sum_year)
+    for i in sum_year:
+        if i >= 2016:
+            a += 1
+            number.append(a)
+    print(number)
+    for sublist in table:
+        if line in number:
+            result.append(sublist)
+            line += 1
 
-    # your code
-
-    pass
+    ui.print_result(result, "Avalible resources")
+    return(result)
 
 
 # the question: What are the average durability time for each manufacturer?

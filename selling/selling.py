@@ -59,6 +59,7 @@ def start_module():
             raise KeyError("There is no such option.")
     except KeyError as err:
         ui.print_error_message(err)
+        start_module()
     pass
 
 
@@ -77,8 +78,7 @@ def show_table(table):
 #
 # @table: list of lists
 def add(table):
-
-
+    common.add_to_table(table, "sellings.csv")
     return table
 
 
@@ -87,9 +87,7 @@ def add(table):
 # @table: list of lists
 # @id_: string
 def remove(table, id_):
-
-    # your code
-
+    remove_form_table(table, "sellings.csv", id_)
     return table
 
 
@@ -99,9 +97,7 @@ def remove(table, id_):
 # @table: list of lists
 # @id_: string
 def update(table, id_):
-
-    # your code
-
+    update_the_table(table, "sellings.csv", id_)
     return table
 
 
@@ -125,3 +121,4 @@ def get_items_sold_between(table, month_from, day_from, year_from, month_to, day
     # your code
 
     pass
+Status API Training Shop Blog About
