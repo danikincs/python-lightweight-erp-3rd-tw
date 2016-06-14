@@ -49,26 +49,6 @@ def print_table(table, title_list):
     print('\{0:-^{w}}'.format('-', w=tw + len(col_width)-1), end="/\n")
 
 
-    # for element in title_list:
-    #
-    # for row in table:
-    #     for i, element in row:
-
-    # print(title_list)
-    # for sublist in table:
-    #     print(sublist)
-    # for sublist in table:
-    #     max_lenght = ""
-    #     for i in sublist:
-    #         max_lenght += i.strip(", " "")
-    #     maxis = (len(max_lenght))
-    #     for i in str(maxis):
-    #         print(max(i))
-    #     # for i in sublist:
-    #     #     formatter = "{" + i + ":>"
-    pass
-
-
 # This function needs to print result of the special functions
 #
 # @result: string or list or dictionary - result of the special function
