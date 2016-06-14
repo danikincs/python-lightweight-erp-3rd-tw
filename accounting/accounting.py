@@ -59,18 +59,20 @@ def start_module():
             elif option == "0":
                 back_to_main = True
             else:
-                raise KeyError("There is no such option.")
-        except KeyError as err:
-            ui.print_error_message(err)
-        pass
-
+                raise KeyError
+            break
+        except KeyError:
+            ui.print_error_message("Press the key to get the need option!")
+            start_module()
 
 # print the default table of records from the file
 #
 # @table: list of lists
+
+
 def show_table(table):
-    title_list = ["id", "month", "day", "year", "type", "type", "amount"]
-    ui.print_table(table)
+    title_list = ["id", "month", "day", "year", "type", "amount"]
+    ui.print_table(table, title_list)
     start_module()
     pass
 
@@ -79,7 +81,7 @@ def show_table(table):
 #
 # @table: list of lists
 def add(table):
-    common.add_to_table(table, "items.csv")
+    common.add_to_table(table, "accounting/items.csv")
     return table
 
 
@@ -88,7 +90,7 @@ def add(table):
 # @table: list of lists
 # @id_: string
 def remove(table, id_):
-    common.remove_form_table(table, "items.csv", id_)
+    common.remove_form_table(table, "accounting/items.csv", id_)
     return table
 
 
@@ -98,7 +100,7 @@ def remove(table, id_):
 # @table: list of lists
 # @id_: string
 def update(table, id_):
-    common.update_the_table(table, "items.csv", id_)
+    common.update_the_table(table, "accounting/items.csv", id_)
     return table
 
 
@@ -108,7 +110,6 @@ def update(table, id_):
 # the question: Which year has the highest profit? (profit=in-out)
 # return the answer (number)
 def which_year_max(table):
-
     # your code
 
     pass

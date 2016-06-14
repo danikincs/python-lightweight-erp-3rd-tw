@@ -41,9 +41,9 @@ def start_module():
             elif option == "2":
                 add(table)
             elif option == "3":
-                remove(table, id_=ui.get_inputs("Plese enter the id of the record you'd like to remove: ", ""))
+                remove(table, id_=ui.get_inputs("Please enter the id of the record you'd like to remove: ", ""))
             elif option == "4":
-                update(table, id_=common.generate_random(table))
+                update(table, id_=ui.get_inputs("Please enter the id of the record you'd like to update: ", ""))
             elif option == "5":
                 get_longest_name_id(table)
             elif option == "6":
@@ -74,7 +74,7 @@ def show_table(table):
 # @table: list of lists
 def add(table):
 
-    # your code
+    common.add_to_table(table, "crm/customers_test.csv")
 
     return table
 
@@ -85,7 +85,7 @@ def add(table):
 # @id_: string
 def remove(table, id_):
 
-    # your code
+    common.remove_form_table(table, "crm/customers_test.csv", id_)
 
     return table
 
@@ -97,7 +97,7 @@ def remove(table, id_):
 # @id_: string
 def update(table, id_):
 
-    # your code
+    update_the_table(table, "crm/customers_test.csv", id_)
 
     return table
 
