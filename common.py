@@ -33,4 +33,3 @@ def generate_random(table):
     #     True
 
     # your code
-generate_random(table)
