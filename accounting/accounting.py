@@ -59,11 +59,10 @@ def start_module():
             elif option == "0":
                 back_to_main = True
             else:
-                raise KeyError
-            except KeyError:
-                ui.print_error_message("Press the key to get the need option!")
-                start_module()
-            pass
+                raise KeyError("There is no such option.")
+        except KeyError as err:
+            ui.print_error_message(err)
+        pass
 
 
 # print the default table of records from the file
