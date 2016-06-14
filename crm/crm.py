@@ -8,7 +8,6 @@
 
 # importing everything you need
 import os
-import main
 from importlib.machinery import SourceFileLoader
 current_file_path = os.path.dirname(os.path.abspath(__file__))
 # User interface module
@@ -24,36 +23,39 @@ common = SourceFileLoader("common", current_file_path + "/../common.py").load_mo
 # we need to reach the default and the special functions of this module from the module menu
 #
 def start_module():
-    table = ''
-    options = ["1: Print default records",
-               "2: Add new record",
-               "3: Remove record by id",
-               "4: Update record by id",
-               "5: Customer with the longest name",
-               "6: Customers subscribed to the newsletter"]
+    table = data_manager.get_table_from_file("crm/customers_test.csv")
+    options = ["- Print default records",
+               "- Add new record",
+               "- Remove record by id",
+               "- Update record by id",
+               "- ID of customer with the longest name",
+               "- Customers subscribed to the newsletter"]
 
-    ui.print_menu("Customer relationship management (CRM)", options, "0: Return to main menu")
+    ui.print_menu("\nCustomer relationship management (CRM)\n", options, "0 - Return to main menu\n")
     inputs = ui.get_inputs("Please enter a number: ", "")
     option = inputs[0]
-    try:
-        if option == "1":
-            show_table()
-        elif option == "2":
-            add()
-        elif option == "3":
-            remove()
-        elif option == "4":
-            update()
-        elif option == "5":
-            get_longest_name_id()
-        elif option == "6":
-            get_subscribed_emails()
-        elif option == "0":
-            main.main()
-        else:
-            raise KeyError("There is no such option.")
-    except KeyError as err:
-        ui.print_error_message(err)
+    while True:
+        try:
+            if option == "1":
+                show_table(table)
+            elif option == "2":
+                add(table)
+            elif option == "3":
+                remove(table, id_=ui.get_inputs("Plese enter the id of the record you'd like to remove: ", ""))
+            elif option == "4":
+                update(table, id_=common.generate_random(table))
+            elif option == "5":
+                get_longest_name_id(table)
+            elif option == "6":
+                get_subscribed_emails(table)
+            elif option == "0":
+                break
+            else:
+                raise KeyError
+            break
+        except KeyError:
+            ui.print_error_message("\nThere is no such option.")
+            start_module()
     pass
 
 
@@ -61,8 +63,8 @@ def start_module():
 #
 # @table: list of lists
 def show_table(table):
-
-    # your code
+    title_list = ["id", "name", "email", "subscribed"]
+    ui.print_table(table, title_list)
 
     pass
 
@@ -107,9 +109,18 @@ def update(table, id_):
 # the question: What is the id of the customer with the longest name ?
 # return type: string (id) - if there are more than one longest name, return the first of descending alphabetical order
 def get_longest_name_id(table):
-
-    # your code
-
+    name_lengths = []
+    longest_names = []
+    for i in table:
+        name_lengths.append(len(i[1]))
+    max_name_length = max(name_lengths)
+    for i, j in enumerate(name_lengths):
+        if max_name_length == j:
+            longest_names.append(table[i][1])
+    first_longest_name = min(longest_names)
+    for i in table:
+        if first_longest_name in i:
+            ui.print_result(i[0], "ID of the longest (alphabetical first, if there's more than one) name:")
     pass
 
 

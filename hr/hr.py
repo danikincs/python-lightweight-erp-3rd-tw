@@ -9,6 +9,7 @@
 import os
 import main
 import time
+import operator
 from importlib.machinery import SourceFileLoader
 current_file_path = os.path.dirname(os.path.abspath(__file__))
 # User interface module
@@ -24,8 +25,10 @@ common = SourceFileLoader("common", current_file_path + "/../common.py").load_mo
 # we need to reach the default and the special functions of this module from the module menu
 table = ''
 list1 = ''
+
+
 def start_module():
-    ui.print_menu("Human Resources", ["show", "add", "remove", "update"], "0 exit")
+    ui.print_menu("Human Resources", ["show", "add", "remove", "update", "oldest"], "0 exit")
     inputs = ui.get_inputs(["Please enter a number: "], "")
     option = inputs[0]
     table = data_manager.get_table_from_file("hr/persons.csv")
@@ -35,9 +38,13 @@ def start_module():
         elif option == "2":
             add(table)
         elif option == "3":
+            id_ = ui.get_inputs("Enter the item/'s id you want to remove:","")
             remove(table, id_)
         elif option == "4":
+            id_ = ui.get_inputs("Enter the item/'s id you want to update:","")
             update(table, id_)
+        elif option == "5":
+            get_oldest_person(table)
         elif option == "0":
             main.main()
         else:
@@ -64,11 +71,7 @@ def show_table(table):
 #
 # @table: list of lists
 def add(table):
-    added_item = ui.get_inputs("Please type in a name:", "")
-    added_items = added_item.split(",")
-    added_items.insert(0, common.generate_random(table))
-    table.append(added_items)
-    show_table(table)
+    common.add_to_table(table, "hr/persons.csv")
 
     return table
 
@@ -78,10 +81,7 @@ def add(table):
 # @table: list of lists
 # @id_: string
 def remove(table, id_):
-    for sublist in table:
-        if id_ in sublist:
-            table.remove(sublist[:])
-    show_table(table)
+    common.remove_form_table(table, "hr/persons.csv", id_)
 
     return table
 
@@ -92,14 +92,7 @@ def remove(table, id_):
 # @table: list of lists
 # @id_: string
 def update(table, id_):
-    added_item = ui.get_inputs("Type what what would you like to modify:", "")
-    for sublist in table:
-        if id_ in sublist:
-            table.remove(sublist[:])
-            added_items = added_item.split(",")
-            added_items.insert(0, id_)
-            table.append(added_items)
-    show_table(table)
+    common.update_the_table(table, "hr/persons.csv", id_)
 
     return table
 
@@ -110,8 +103,7 @@ def update(table, id_):
 # the question: Who is the oldest person ?
 # return type: list of strings (name or names if there are two more with the same value)
 def get_oldest_person(table):
-
-    # your code
+    date = []
 
     pass
 
