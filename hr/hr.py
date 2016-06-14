@@ -25,7 +25,7 @@ common = SourceFileLoader("common", current_file_path + "/../common.py").load_mo
 table = ''
 list1 = ''
 def start_module():
-    ui.print_menu("Human Resources", ["1.show", "2.add", "3.remove", "4.update"], "0.exit")
+    ui.print_menu("Human Resources", ["show", "add", "remove", "update"], "0 exit")
     inputs = ui.get_inputs(["Please enter a number: "], "")
     option = inputs[0]
     table = data_manager.get_table_from_file("hr/persons.csv")
@@ -64,8 +64,11 @@ def show_table(table):
 #
 # @table: list of lists
 def add(table):
-
-    # your code
+    added_item = ui.get_inputs("Please type in a name:", "")
+    added_items = added_item.split(",")
+    added_items.insert(0, common.generate_random(table))
+    table.append(added_items)
+    show_table(table)
 
     return table
 
@@ -75,8 +78,10 @@ def add(table):
 # @table: list of lists
 # @id_: string
 def remove(table, id_):
-
-    # your code
+    for sublist in table:
+        if id_ in sublist:
+            table.remove(sublist[:])
+    show_table(table)
 
     return table
 
@@ -87,8 +92,14 @@ def remove(table, id_):
 # @table: list of lists
 # @id_: string
 def update(table, id_):
-
-    # your code
+    added_item = ui.get_inputs("Type what what would you like to modify:", "")
+    for sublist in table:
+        if id_ in sublist:
+            table.remove(sublist[:])
+            added_items = added_item.split(",")
+            added_items.insert(0, id_)
+            table.append(added_items)
+    show_table(table)
 
     return table
 
