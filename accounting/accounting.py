@@ -60,10 +60,10 @@ def start_module():
                 back_to_main = True
             else:
                 raise KeyError
-            except KeyError:
-                ui.print_error_message("Press the key to get the need option!")
-                start_module()
-            pass
+            break
+        except KeyError:
+            ui.print_error_message("Press the key to get the need option!")
+            start_module()
 
 
 # print the default table of records from the file
