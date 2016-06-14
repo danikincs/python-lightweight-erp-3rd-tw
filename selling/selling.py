@@ -35,7 +35,7 @@ def start_module():
 
     ui.print_menu("Sellings of the company", options, "0: Return to main menu")
     inputs = ui.get_inputs("Please enter a number: ", "")
-    table = data_manager.get_table_from_file("sellings.csv")
+    table = data_manager.get_table_from_file("selling/sellings.csv")
     option = inputs[0]
     try:
         if option == "1":
@@ -78,7 +78,7 @@ def show_table(table):
 #
 # @table: list of lists
 def add(table):
-    common.add_to_table(table, "sellings.csv")
+    common.add_to_table(table, "selling/sellings.csv")
     return table
 
 
@@ -87,7 +87,7 @@ def add(table):
 # @table: list of lists
 # @id_: string
 def remove(table, id_):
-    remove_form_table(table, "sellings.csv", id_)
+    remove_form_table(table, "selling/sellings.csv", id_)
     return table
 
 
@@ -97,7 +97,7 @@ def remove(table, id_):
 # @table: list of lists
 # @id_: string
 def update(table, id_):
-    update_the_table(table, "sellings.csv", id_)
+    update_the_table(table, "selling/sellings.csv", id_)
     return table
 
 
@@ -108,9 +108,11 @@ def update(table, id_):
 # return type: string (id)
 # if there are more than one with the lowest price, return the first of descending alphabetical order
 def get_lowest_price_item_id(table):
-
-    # your code
-
+    lowest_price = 0
+    for i in range(len(table)):
+        if int(table[i][2]) > lowest_price:
+            lowest_price = int(table[i][2])
+    print(lowest_price)
     pass
 
 
@@ -121,4 +123,3 @@ def get_items_sold_between(table, month_from, day_from, year_from, month_to, day
     # your code
 
     pass
-Status API Training Shop Blog About
