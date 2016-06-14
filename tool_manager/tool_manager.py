@@ -8,6 +8,7 @@
 
 
 # importing everything you need
+import main
 import os
 from importlib.machinery import SourceFileLoader
 current_file_path = os.path.dirname(os.path.abspath(__file__))
@@ -30,7 +31,7 @@ def start_module():
                "Remove record by id",
                "Update record by id",
                "Avalible tools",
-               "Customers subscribed to the newsletter"]
+               "Get average durability"]
 
     ui.print_menu("Customer relationship management (CRM)", options, "0: Return to main menu")
     inputs = ui.get_inputs("Please enter a number: ", "")
@@ -75,11 +76,7 @@ def show_table(table):
 #
 # @table: list of lists
 def add(table):
-    added_item = ui.get_inputs("Enter what you want to add:", "")
-    added_items = added_item.split(",")
-    added_items.insert(0, common.generate_random(table))
-    table.append(added_items)
-    show_table(table)
+    common.add_to_table(table, "tool_manager/tools.csv")
 
     return table
 
@@ -89,12 +86,7 @@ def add(table):
 # @table: list of lists
 # @id_: string
 def remove(table, id_):
-    for sublist in table:
-        if id_ in sublist:
-            table.remove(sublist[:])
-    show_table(table)
-
-    # your code
+    common.remove_form_table(table, "tool_manager/tools.csv", id_)
 
     return table
 
@@ -105,16 +97,7 @@ def remove(table, id_):
 # @table: list of lists
 # @id_: string
 def update(table, id_):
-    added_item = ui.get_inputs("Enter what you want to update:", "")
-    for sublist in table:
-        if id_ in sublist:
-            table.remove(sublist[:])
-            added_items = added_item.split(",")
-            added_items.insert(0, id_)
-            table.append(added_items)
-    show_table(table)
-
-    # your code
+    update_the_table(table, "tool_manager/tools.csv", id_)
 
     return table
 
