@@ -9,6 +9,7 @@
 import os
 import main
 import time
+import operator
 from importlib.machinery import SourceFileLoader
 current_file_path = os.path.dirname(os.path.abspath(__file__))
 # User interface module
@@ -27,7 +28,7 @@ list1 = ''
 
 
 def start_module():
-    ui.print_menu("Human Resources", ["show", "add", "remove", "update"], "0 exit")
+    ui.print_menu("Human Resources", ["show", "add", "remove", "update", "oldest"], "0 exit")
     inputs = ui.get_inputs(["Please enter a number: "], "")
     option = inputs[0]
     table = data_manager.get_table_from_file("hr/persons.csv")
@@ -42,6 +43,8 @@ def start_module():
         elif option == "4":
             id_ = ui.get_inputs("Enter the item/'s id you want to update:","")
             update(table, id_)
+        elif option == "5":
+            get_oldest_person(table)
         elif option == "0":
             main.main()
         else:
@@ -100,7 +103,8 @@ def update(table, id_):
 # the question: Who is the oldest person ?
 # return type: list of strings (name or names if there are two more with the same value)
 def get_oldest_person(table):
-    
+    date = []
+
     pass
 
 
