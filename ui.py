@@ -32,8 +32,8 @@ def print_table(table, title_list):
 # @result: string or list or dictionary - result of the special function
 # @label: string - label of the result
 def print_result(result, label):
-
-    # your code
+    print(label)
+    print(result)
 
     pass
 
@@ -53,8 +53,10 @@ def print_result(result, label):
 # @exit_message: string - the last option with (0) (example: "Back to main menu")
 def print_menu(title, list_options, exit_message):
     print(title)
+    a = 1
     for items in list_options:
-        print(list_options.index(items)+1, items)
+        print(a, items)
+        a += 1
     print(exit_message)
 
     # your code
