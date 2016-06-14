@@ -52,8 +52,10 @@ def start_module():
             elif option == "2":
                 add(table)
             elif option == "3":
+                id_ = ui.get_inputs("Enter what you want to delete:", "")
                 remove(table, id_)
             elif option == "4":
+                id_ = ui.get_inputs("Enter what you want to update(id):", "")
                 update(table, id_)
             elif option == "5":
                 get_counts_by_manufacturers(table)
@@ -82,8 +84,7 @@ def show_table(table):
 #
 # @table: list of lists
 def add(table):
-
-    # your code
+    common.add_to_table(table, "store/store.csv")
 
     return table
 
@@ -93,8 +94,7 @@ def add(table):
 # @table: list of lists
 # @id_: string
 def remove(table, id_):
-
-    # your code
+    common.remove_form_table(table, "store/store.csv", id_)
 
     return table
 
@@ -105,8 +105,7 @@ def remove(table, id_):
 # @table: list of lists
 # @id_: string
 def update(table, id_):
-
-    # your code
+    common.update_the_table(table, "store/store.csv", id_)
 
     return table
 
