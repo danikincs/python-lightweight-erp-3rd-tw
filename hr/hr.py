@@ -24,6 +24,8 @@ common = SourceFileLoader("common", current_file_path + "/../common.py").load_mo
 # we need to reach the default and the special functions of this module from the module menu
 table = ''
 list1 = ''
+
+
 def start_module():
     ui.print_menu("Human Resources", ["show", "add", "remove", "update"], "0 exit")
     inputs = ui.get_inputs(["Please enter a number: "], "")

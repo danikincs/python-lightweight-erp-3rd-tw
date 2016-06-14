@@ -26,7 +26,7 @@ common = SourceFileLoader("common", current_file_path + "/../common.py").load_mo
 # we need to reach the default and the special functions of this module from the module menu
 #
 def start_module():
-
+    
     # you code
 
     pass
@@ -36,7 +36,8 @@ def start_module():
 #
 # @table: list of lists
 def show_table(table):
-
+    table = get_table_from_file("sellings.csv")
+    print_table(table, title_list)
     # your code
 
     pass
