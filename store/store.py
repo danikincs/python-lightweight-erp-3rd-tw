@@ -9,7 +9,6 @@
 
 # importing everything you need
 import os
-import main
 from importlib.machinery import SourceFileLoader
 current_file_path = os.path.dirname(os.path.abspath(__file__))
 # User interface module
@@ -30,12 +29,12 @@ list_options = ''
 # back_to_main = 0
 
 def handle_menu():
-    options = ["1: Show table",
-               "2: Add to table",
-               "3: Remove from table",
-               "4: Update table",
-               "5: Available kinds of games by manufacturers",
-               "6: Average amount of games by manufacturers"]
+    options = ["Show table",
+               "Add to table",
+               "Remove from table",
+               "Update table",
+               "Available kinds of games by manufacturers",
+               "Average amount of games by manufacturers"]
 
     ui.print_menu("Store manager", options, "0: Back to main menu")
 
