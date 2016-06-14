@@ -8,6 +8,7 @@
 
 
 # importing everything you need
+import main
 import os
 from importlib.machinery import SourceFileLoader
 current_file_path = os.path.dirname(os.path.abspath(__file__))
