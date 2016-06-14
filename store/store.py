@@ -23,10 +23,7 @@ common = SourceFileLoader("common", current_file_path + "/../common.py").load_mo
 # user need to go back to the main menu from here
 # we need to reach the default and the special functions of this module from the module menu
 #
-table = ''
-title = ''
-list_options = ''
-# back_to_main = 0
+
 
 def handle_menu():
     options = ["Show table",
@@ -63,6 +60,7 @@ def start_module():
                 back_to_main = 1
             else:
                 raise KeyError
+            break
         except KeyError:
             ui.print_error_message("There's no such option.")
             start_module()
