@@ -23,21 +23,56 @@ common = SourceFileLoader("common", current_file_path + "/../common.py").load_mo
 # start this module by a module menu like the main menu
 # user need to go back to the main menu from here
 # we need to reach the default and the special functions of this module from the module menu
-#
+def handle_menu():
+    options = ["Show table",
+               "Add to table",
+               "Remove from table",
+               "Update table",
+               "The highest profit according to year",
+               "Average profit per item in a given year"]
+
+    ui.print_menu("Accounting", options, "0: Back to main menu")
+
+
 def start_module():
-
-    # you code
-
-    pass
+    handle_menu()
+    inputs = ui.get_inputs(["Please enter a number: "], "")
+    option = inputs[0]
+    table = data_manager.get_table_from_file("accounting/items.csv")
+    back_to_main = False
+    while not back_to_main:
+        try:
+            if option == "1":
+                show_table(table)
+            elif option == "2":
+                add(table)
+            elif option == "3":
+                id_ = ui.get_inputs("What item would you like to delete:", "")
+                remove(table, id_)
+            elif option == "4":
+                id_ = ui.get_inputs("Which item would you like to update:", "")
+                update(table, id_)
+            elif option == "5":
+                which_year_max(table)
+            elif option == "6":
+                avg_amount(table)
+            elif option == "0":
+                back_to_main = True
+            else:
+                raise KeyError
+            except KeyError:
+                ui.print_error_message("Press the key to get the need option!")
+                start_module()
+            pass
 
 
 # print the default table of records from the file
 #
 # @table: list of lists
 def show_table(table):
-
-    # your code
-
+    title_list = ["id", "month", "day", "year", "type", "type", "amount"]
+    ui.print_table(table)
+    start_module()
     pass
 
 
@@ -45,9 +80,7 @@ def show_table(table):
 #
 # @table: list of lists
 def add(table):
-
-    # your code
-
+    common.add_to_table(table, "items.csv")
     return table
 
 
@@ -56,9 +89,7 @@ def add(table):
 # @table: list of lists
 # @id_: string
 def remove(table, id_):
-
-    # your code
-
+    common.remove_form_table(table, "items.csv", id_)
     return table
 
 
@@ -68,9 +99,7 @@ def remove(table, id_):
 # @table: list of lists
 # @id_: string
 def update(table, id_):
-
-    # your code
-
+    common.update_the_table(table, "items.csv", id_)
     return table
 
 
