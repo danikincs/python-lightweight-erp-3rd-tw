@@ -26,15 +26,15 @@ common = SourceFileLoader("common", current_file_path + "/../common.py").load_mo
 table = ''
 title = ''
 list_options = ''
-
+# back_to_main = 0
 
 def handle_menu():
-    options = ["1: Show table",
-               "2: Add to table",
-               "3: Remove from table",
-               "4: Update table",
-               "5: Available kinds of games by manufacturers",
-               "6: Avarega amount of games by manufacturers"]
+    options = ["Show table",
+               "Add to table",
+               "Remove from table",
+               "Update table",
+               "Available kinds of games by manufacturers",
+               "Average amount of games by manufacturers"]
 
     ui.print_menu("Store manager", options, "0: Back to main menu")
 
@@ -42,30 +42,30 @@ def handle_menu():
 def start_module():
     handle_menu()
     inputs = ui.get_inputs(["Please enter a number: "], "")
-    option = inputs[0]
     table = data_manager.get_table_from_file("store/games.csv")
-    try:
-        if option == "1":
-            show_table(table)
-        elif option == "2":
-            add(table)
-        elif option == "3":
-            remove(table, id_)
-        elif option == "4":
-            update(table, id_)
-        elif option == "5":
-            get_counts_by_manufacturers(table)
-        elif option == "6":
-            get_average_by_manufacturer(table)
-        elif option == "0":
-            ui.print_menu(title, list_options, exit_message)
-        else:
-            raise KeyError("There is no such option.")
-    except KeyError as err:
-        ui.print_error_message(err)
-    # you code
-
-    pass
+    option = inputs[0]
+    back_to_main = 0
+    while not back_to_main:
+        try:
+            if option == "1":
+                show_table(table)
+            elif option == "2":
+                add(table)
+            elif option == "3":
+                remove(table, id_)
+            elif option == "4":
+                update(table, id_)
+            elif option == "5":
+                get_counts_by_manufacturers(table)
+            elif option == "6":
+                get_average_by_manufacturer(table)
+            elif option == "0":
+                back_to_main = 1
+            else:
+                raise KeyError
+        except KeyError:
+            ui.print_error_message("There's no such option.")
+            start_module()
 
 
 # print the default table of records from the file

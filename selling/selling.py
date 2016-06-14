@@ -26,9 +26,39 @@ common = SourceFileLoader("common", current_file_path + "/../common.py").load_mo
 # we need to reach the default and the special functions of this module from the module menu
 #
 def start_module():
+    options = ["Print default records",
+               "Add new record",
+               "Remove record by id",
+               "Update record by id",
+               "Find item with the lowest price",
+               "Find items sold between dates"]
 
-    # you code
-
+    ui.print_menu("Sellings of the company", options, "0: Return to main menu")
+    inputs = ui.get_inputs("Please enter a number: ", "")
+    table = data_manager.get_table_from_file("sellings.csv")
+    option = inputs[0]
+    try:
+        if option == "1":
+            show_table(table)
+        elif option == "2":
+            add(table)
+        elif option == "3":
+            id_ = ui.get_inputs("Enter what you want to delete:", "")
+            remove(table, id_)
+        elif option == "4":
+            id_ = ui.get_inputs("Enter what you want to update(id):", "")
+            update(table, id_)
+        elif option == "5":
+            get_lowest_price_item_id(table)
+        elif option == "6":
+            get_items_sold_between \
+            (table, month_from, day_from, year_from, month_to, day_to, year_to)
+        elif option == "0":
+            main.main()
+        else:
+            raise KeyError("There is no such option.")
+    except KeyError as err:
+        ui.print_error_message(err)
     pass
 
 
@@ -36,8 +66,9 @@ def start_module():
 #
 # @table: list of lists
 def show_table(table):
-
-    # your code
+    title_list = ["id", "title", "price", "month", "day", "year"]
+    ui.print_table(table)
+    start_module()
 
     pass
 
@@ -47,7 +78,6 @@ def show_table(table):
 # @table: list of lists
 def add(table):
 
-    # your code
 
     return table
 
