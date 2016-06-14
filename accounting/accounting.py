@@ -55,23 +55,24 @@ def start_module():
             elif option == "5":
                 which_year_max(table)
             elif option == "6":
-                avg_amount(table)
+                avg_amount(table, year = int(ui.get_inputs("Insert a year:", "")))
             elif option == "0":
                 back_to_main = True
             else:
                 raise KeyError
+            break
         except KeyError:
             ui.print_error_message("Press the key to get the need option!")
             start_module()
-        pass
-
 
 # print the default table of records from the file
 #
 # @table: list of lists
+
+
 def show_table(table):
-    title_list = ["id", "month", "day", "year", "type", "type", "amount"]
-    ui.print_table(table)
+    title_list = ["id", "month", "day", "year", "type", "amount"]
+    ui.print_table(table, title_list)
     start_module()
     pass
 
@@ -80,7 +81,7 @@ def show_table(table):
 #
 # @table: list of lists
 def add(table):
-    common.add_to_table(table, "items.csv")
+    common.add_to_table(table, "accounting/items.csv")
     return table
 
 
@@ -89,7 +90,7 @@ def add(table):
 # @table: list of lists
 # @id_: string
 def remove(table, id_):
-    common.remove_form_table(table, "items.csv", id_)
+    common.remove_form_table(table, "accounting/items.csv", id_)
     return table
 
 
@@ -99,7 +100,7 @@ def remove(table, id_):
 # @table: list of lists
 # @id_: string
 def update(table, id_):
-    common.update_the_table(table, "items.csv", id_)
+    common.update_the_table(table, "accounting/items.csv", id_)
     return table
 
 
@@ -109,16 +110,33 @@ def update(table, id_):
 # the question: Which year has the highest profit? (profit=in-out)
 # return the answer (number)
 def which_year_max(table):
-
-    # your code
-
-    pass
-
+    highest_profit = 0
+    incomes = []
+    for line in table:
+        if line[4] == "in":
+            incomes.append(int(line[-1]))
+    highest = max(incomes)
+    for line in table:
+        if int(line[5]) == highest:
+            year = int(line[3])
+    return year
 
 # the question: What is the average (per item) profit in a given year? [(profit)/(items count) ]
 # return the answer (number)
 def avg_amount(table, year):
-
-    # your code
-
+    income = []
+    count = 0
+    for line in table:
+        if int(line[3]) == year:
+            if line[4] == "out":
+                line[5] = int(line[5])*(-1)
+                income.append(line[5])
+            else:
+                income.append(int(line[5]))
+            count += 1
+    sum_ = 0
+    for profits in income:
+        sum_ += profits
+    average = sum_ / count
+    return average
     pass
