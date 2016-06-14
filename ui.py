@@ -1,4 +1,3 @@
-from common import generate_random
 # This function needs to print outputs like this:
 # /-----------------------------------\
 # |   id   |      title     |  type   |
@@ -13,11 +12,18 @@ from common import generate_random
 
 
 def print_table(table, title_list):
-    columns = len(title_list)
     print(title_list)
     for sublist in table:
         print(sublist)
-
+    # for sublist in table:
+    #     max_lenght = ""
+    #     for i in sublist:
+    #         max_lenght += i.strip(", " "")
+    #     maxis = (len(max_lenght))
+    #     for i in str(maxis):
+    #         print(max(i))
+    #     # for i in sublist:
+    #     #     formatter = "{" + i + ":>"
     pass
 
 
@@ -48,7 +54,7 @@ def print_result(result, label):
 def print_menu(title, list_options, exit_message):
     print(title)
     for items in list_options:
-        print(items)
+        print(list_options.index(items)+1, items)
     print(exit_message)
 
     # your code
@@ -64,7 +70,6 @@ def print_menu(title, list_options, exit_message):
 def get_inputs(list_labels, title):
     inputs = []
     inputs = input(list_labels)
-    # your code
     return inputs
 
 

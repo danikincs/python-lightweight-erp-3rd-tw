@@ -8,6 +8,7 @@
 
 
 # importing everything you need
+import main
 import os
 from importlib.machinery import SourceFileLoader
 current_file_path = os.path.dirname(os.path.abspath(__file__))
@@ -17,6 +18,7 @@ ui = SourceFileLoader("ui", current_file_path + "/../ui.py").load_module()
 data_manager = SourceFileLoader("data_manager", current_file_path + "/../data_manager.py").load_module()
 # common module
 common = SourceFileLoader("common", current_file_path + "/../common.py").load_module()
+table = data_manager.get_table_from_file("tool_manager/tools.csv")
 
 
 # start this module by a module menu like the main menu
@@ -24,18 +26,48 @@ common = SourceFileLoader("common", current_file_path + "/../common.py").load_mo
 # we need to reach the default and the special functions of this module from the module menu
 #
 def start_module():
+    options = ["Print default records",
+               "Add new record",
+               "Remove record by id",
+               "Update record by id",
+               "Avalible tools",
+               "Customers subscribed to the newsletter"]
 
-    # you code
-
+    ui.print_menu("Customer relationship management (CRM)", options, "0: Return to main menu")
+    inputs = ui.get_inputs("Please enter a number: ", "")
+    option = inputs[0]
+    try:
+        if option == "1":
+            show_table(table)
+        elif option == "2":
+            add(table)
+        elif option == "3":
+            id_ = ui.get_inputs("Enter what you want to delete:", "")
+            remove(table, id_)
+        elif option == "4":
+            id_ = ui.get_inputs("Enter what you want to update(id):", "")
+            update(table, id_)
+        elif option == "5":
+            get_available_tools()
+        elif option == "6":
+            get_average_durability_by_manufacturers()
+        elif option == "0":
+            main.main()
+        else:
+            raise KeyError("There is no such option.")
+    except KeyError as err:
+        ui.print_error_message(err)
     pass
-
 
 # print the default table of records from the file
 #
 # @table: list of lists
-def show_table(table):
 
-    # your code
+
+def show_table(table):
+    title_list = ['id', 'name', 'manufacturer', 'purchase_date', 'durability']
+    ui.print_table(table, title_list)
+    start_module()
 
     pass
 
@@ -44,8 +76,11 @@ def show_table(table):
 #
 # @table: list of lists
 def add(table):
-
-    # your code
+    added_item = ui.get_inputs("Enter what you want to add:", "")
+    added_items = added_item.split(",")
+    added_items.insert(0, common.generate_random(table))
+    table.append(added_items)
+    show_table(table)
 
     return table
 
@@ -55,6 +90,10 @@ def add(table):
 # @table: list of lists
 # @id_: string
 def remove(table, id_):
+    for sublist in table:
+        if id_ in sublist:
+            table.remove(sublist[:])
+    show_table(table)
 
     # your code
 
@@ -67,6 +106,14 @@ def remove(table, id_):
 # @table: list of lists
 # @id_: string
 def update(table, id_):
+    added_item = ui.get_inputs("Enter what you want to update:", "")
+    for sublist in table:
+        if id_ in sublist:
+            table.remove(sublist[:])
+            added_items = added_item.split(",")
+            added_items.insert(0, id_)
+            table.append(added_items)
+    show_table(table)
 
     # your code
 

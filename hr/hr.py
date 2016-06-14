@@ -7,6 +7,8 @@
 
 # importing everything you need
 import os
+import main
+import time
 from importlib.machinery import SourceFileLoader
 current_file_path = os.path.dirname(os.path.abspath(__file__))
 # User interface module
@@ -20,24 +22,29 @@ common = SourceFileLoader("common", current_file_path + "/../common.py").load_mo
 # start this module by a module menu like the main menu
 # user need to go back to the main menu from here
 # we need to reach the default and the special functions of this module from the module menu
-#
+table = ''
+list1 = ''
 def start_module():
-    ui.print_menu("Human Resources", ["show, add, remove, update"], "exit_message")
+    ui.print_menu("Human Resources", ["1.show", "2.add", "3.remove", "4.update"], "0.exit")
     inputs = ui.get_inputs(["Please enter a number: "], "")
     option = inputs[0]
-    if option == "1":
-        show_table()
-    elif option == "2":
-        add()
-    elif option == "3":
-        remove()
-    elif option == "4":
-        update()
-    elif option == "0":
-        sys.exit(0)
-    else:
-        raise KeyError("There is no such option.")
-
+    table = data_manager.get_table_from_file("hr/persons.csv")
+    try:
+        if option == "1":
+            show_table(table)
+        elif option == "2":
+            add(table)
+        elif option == "3":
+            remove(table, id_)
+        elif option == "4":
+            update(table, id_)
+        elif option == "0":
+            main.main()
+        else:
+            raise KeyError
+    except KeyError:
+        ui.print_error_message("There is no such option.")
+        start_module()
     pass
 
 
@@ -45,8 +52,10 @@ def start_module():
 #
 # @table: list of lists
 def show_table(table):
-
-    # your code
+    list1 = ['id', 'name', 'birth_date']
+    ui.print_table(table, list1)
+    time.sleep(0.5)
+    start_module()
 
     pass
 
