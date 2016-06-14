@@ -76,3 +76,10 @@ def generate_random(table):
         if used == all_used:
             return generated
             break
+
+        if generated in table:
+            return
+    # if generated in table:
+    #     True
+
+    # your code
