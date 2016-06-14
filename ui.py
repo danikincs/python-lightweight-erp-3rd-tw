@@ -14,7 +14,8 @@
 def print_table(table, title_list):
     print(title_list)
     for sublist in table:
-        print(sublist)
+       for elem in sublist:
+           print("{0:>5}".format(elem))
     # for sublist in table:
     #     max_lenght = ""
     #     for i in sublist:
