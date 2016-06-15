@@ -124,14 +124,13 @@ def get_available_tools(table):
     avalible = []
     line = 1
     result = []
-    # print(sum_year)
     for i in sum_year:
         if i >= year:
             a += 1
             number.append(a)
     for sublist in table:
         if line in number:
-            result.append(sublist)
+            result.append(([sublist[0], sublist[1], sublist[2], int(sublist[3]), int(sublist[4])]))
             line += 1
 
     ui.print_result(result, "Avalible resources")
@@ -143,18 +142,5 @@ def get_available_tools(table):
 #
 # @table: list of lists
 def get_average_durability_by_manufacturers(table):
-    manufacturers = []
-    for sublist in table:
-        if sublist[2] not in manufacturers:
-            manufacturers.append(sublist[2])
-    values = []
-    # for sublist in table:
-    manufacturer = {k[2]: k[4] for k in table}
-    # for sublist in table:
-    for k in manufacturer.keys():
-        for sublist in table:
-            if k == sublist[2]:
-                manufacturer[k] += sublist[4]
-    # your code
-    print(manufacturer)
+
     pass
