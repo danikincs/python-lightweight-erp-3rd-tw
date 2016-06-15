@@ -11,6 +11,7 @@
 import main
 import os
 from importlib.machinery import SourceFileLoader
+import datetime
 current_file_path = os.path.dirname(os.path.abspath(__file__))
 # User interface module
 ui = SourceFileLoader("ui", current_file_path + "/../ui.py").load_module()
@@ -26,14 +27,14 @@ table = data_manager.get_table_from_file("tool_manager/tools.csv")
 # we need to reach the default and the special functions of this module from the module menu
 #
 def start_module():
-    options = ["Print default records",
-               "Add new record",
-               "Remove record by id",
-               "Update record by id",
-               "Avalible tools",
-               "Get average durability"]
+    options = ["- Print default records",
+               "- Add new record",
+               "- Remove record by id",
+               "- Update record by id",
+               "- Avalible tools",
+               "- Get average durability"]
 
-    ui.print_menu("Customer relationship management (CRM)", options, "0: Return to main menu")
+    ui.print_menu("\nTool Manager\n", options, "0: Return to main menu\n")
     inputs = ui.get_inputs("Please enter a number: ", "")
     option = inputs[0]
     try:
@@ -110,6 +111,7 @@ def update(table, id_):
 #
 # @table: list of lists
 def get_available_tools(table):
+    year = datetime.date.today().year
     date = []
     remain_year = []
     for sublist in table:
@@ -124,17 +126,16 @@ def get_available_tools(table):
     result = []
     # print(sum_year)
     for i in sum_year:
-        if i >= 2016:
+        if i >= year:
             a += 1
             number.append(a)
-    print(number)
     for sublist in table:
         if line in number:
             result.append(sublist)
             line += 1
 
     ui.print_result(result, "Avalible resources")
-    return(result)
+    return result
 
 
 # the question: What are the average durability time for each manufacturer?
@@ -142,19 +143,18 @@ def get_available_tools(table):
 #
 # @table: list of lists
 def get_average_durability_by_manufacturers(table):
-    # manufacturers = []
+    manufacturers = []
+    for sublist in table:
+        if sublist[2] not in manufacturers:
+            manufacturers.append(sublist[2])
+    values = []
     # for sublist in table:
-    #     if sublist[2] not in manufacturers:
-    #         manufacturers.append(sublist[2])
-    # manufacturers_dict = dict.fromkeys(manufacturers)
-    # print(manufacturers_dict)
+    manufacturer = {k[2]: k[4] for k in table}
     # for sublist in table:
-    #     for key in sublist:
-    #         if manufacturers_dict.keys() == key:
-    #             manufacturers_dict[key] = 4
-    # print(manufacturers_dict)
-    #
-    #
-    # # your code
-
+    for k in manufacturer.keys():
+        for sublist in table:
+            if k == sublist[2]:
+                manufacturer[k] += sublist[4]
+    # your code
+    print(manufacturer)
     pass

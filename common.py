@@ -12,8 +12,32 @@ import data_manager
 # @generated: string - generated random string (unique in the @table)
 
 
+def format_inst(file_name):  # module dependant format instructions, only to be used inside common.py
+    table_attribute = ""
+    file_list = [
+        "accounting/items.csv",
+        "crm/customers.csv",
+        "hr/persons.csv",
+        "selling/sellings.csv",
+        "store/games.csv",
+        "tool_manager/tools.csv"
+        ]
+    attribute_list = [
+        "<month>;<day>;<year>;<type>;<amount>",
+        "<name>;<email>;<subscribed(1/0)>",
+        "<name>;<birth year>",
+        "<title>;<price>;<month>;<day>;<year>",
+        "<title>;<manufacturer>;<price>;<stock>",
+        "<name>;<manufacturer>;<purchase year>;<durability>"
+        ]
+    for i, j in enumerate(file_list):
+        if j == file_name:
+            table_attribute = attribute_list[i]
+    return table_attribute
+
+
 def add_to_table(table, file_name):
-    added_item = ui.get_inputs("Enter what you want to add:", "")
+    added_item = ui.get_inputs("Enter what you want to add (format: {0}):".format(format_inst(file_name)), "")
     added_items = added_item.split(",")
     added_items.insert(0, common.generate_random(table))
     table.append(added_items)
@@ -28,7 +52,7 @@ def remove_form_table(table, file_name, id_):
 
 
 def update_the_table(table, file_name, id_):
-    added_item = ui.get_inputs("Enter what you want to update:", "")
+    added_item = ui.get_inputs("Enter what you want to update (format: {0}):".format(format_inst(file_name)), "")
     for sublist in table:
         if id_ in sublist:
             table.remove(sublist[:])
