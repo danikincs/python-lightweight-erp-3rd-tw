@@ -23,7 +23,7 @@ common = SourceFileLoader("common", current_file_path + "/../common.py").load_mo
 # we need to reach the default and the special functions of this module from the module menu
 #
 def start_module():
-    table = data_manager.get_table_from_file("crm/customers_test.csv")
+    table = data_manager.get_table_from_file("crm/customers.csv")
     options = ["- Print default records",
                "- Add new record",
                "- Remove record by id",
@@ -74,7 +74,7 @@ def show_table(table):
 # @table: list of lists
 def add(table):
 
-    common.add_to_table(table, "crm/customers_test.csv")
+    common.add_to_table(table, "crm/customers.csv")
 
     return table
 
@@ -85,7 +85,7 @@ def add(table):
 # @id_: string
 def remove(table, id_):
 
-    common.remove_form_table(table, "crm/customers_test.csv", id_)
+    common.remove_form_table(table, "crm/customers.csv", id_)
 
     return table
 
@@ -97,7 +97,7 @@ def remove(table, id_):
 # @id_: string
 def update(table, id_):
 
-    common.update_the_table(table, "crm/customers_test.csv", id_)
+    common.update_the_table(table, "crm/customers.csv", id_)
 
     return table
 

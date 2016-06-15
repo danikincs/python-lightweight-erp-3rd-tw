@@ -13,7 +13,27 @@ import data_manager
 
 
 def add_to_table(table, file_name):
-    added_item = ui.get_inputs("Enter what you want to add:", "")
+    table_attribute = ""
+    file_list = [
+        "accounting/items.csv",
+        "crm/customers.csv",
+        "hr/persons.csv",
+        "selling/sellings.csv",
+        "store/games.csv",
+        "tool_manager/tools.csv"
+        ]
+    attribute_list = [
+        "<month>;<day>;<year>;<type>;<amount>",
+        "<name>;<email>;<subscribed(1/0)>",
+        "<name>;<birth year>",
+        "<title>;<price>;<month>;<day>;<year>",
+        "<title>;<manufacturer>;<price>;<stock>",
+        "<name>;<manufacturer>;<purchase year>;<durability>"
+        ]
+    for i, j in enumerate(file_list):
+        if j == file_name:
+            table_attribute = attribute_list[i]
+    added_item = ui.get_inputs("Enter what you want to add (format: {0}):".format(table_attribute), "")
     added_items = added_item.split(",")
     added_items.insert(0, common.generate_random(table))
     table.append(added_items)
