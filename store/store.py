@@ -23,10 +23,7 @@ common = SourceFileLoader("common", current_file_path + "/../common.py").load_mo
 # user need to go back to the main menu from here
 # we need to reach the default and the special functions of this module from the module menu
 #
-table = ''
-title = ''
-list_options = ''
-# back_to_main = 0
+
 
 def handle_menu():
     options = ["Show table",
@@ -41,7 +38,7 @@ def handle_menu():
 
 def start_module():
     handle_menu()
-    inputs = ui.get_inputs(["Please enter a number: "], "")
+    inputs = ui.get_inputs("Please enter a number: ", "")
     table = data_manager.get_table_from_file("store/games.csv")
     option = inputs[0]
     back_to_main = 0
@@ -58,21 +55,30 @@ def start_module():
                 id_ = ui.get_inputs("Enter what you want to update(id):", "")
                 update(table, id_)
             elif option == "5":
-                get_counts_by_manufacturers(table)
+                result = get_counts_by_manufacturers(table)
+                ui.print_result(result, "Available kinds of games by manufacturers")
             elif option == "6":
-                get_average_by_manufacturer(table)
+                manufacturer = ui.get_inputs("Please enter a manufacturer: ", "")
+                try:
+                    result = get_average_by_manufacturer(table, manufacturer)
+                    ui.print_result(result, "Average amount of games in stock of the manufacturer")
+                except ValueError:
+                    ui.print_error_message("There's no such manufacturer.")
+                    start_module()
             elif option == "0":
                 back_to_main = 1
             else:
                 raise KeyError
+            break
         except KeyError:
             ui.print_error_message("There's no such option.")
             start_module()
 
-
 # print the default table of records from the file
 #
 # @table: list of lists
+
+
 def show_table(table):
     title_list = ['id', 'title', 'manufacturer', 'price', 'in_stock']
     ui.print_table(table, title_list)
@@ -113,19 +119,42 @@ def update(table, id_):
 # special functions:
 # ------------------
 
+def init_lists(table):
+    manufacturers = []
+    for row in table:
+        for i, item in enumerate(row):
+            if i == 2 and item not in manufacturers:
+                manufacturers.append(item)
+    in_stock = [0] * len(manufacturers)
+    count = [0] * len(manufacturers)
+    for row in table:
+        for j, elem in enumerate(manufacturers):
+            for i, item in enumerate(row):
+                if i == 2 and item == elem:
+                    in_stock[j] += int(row[4])
+                    count[j] += 1
+    lists = [manufacturers, in_stock, count]
+    return lists
 # the question: How many different kinds of game are available of each manufacturer?
 # return type: a dictionary with this structure: { [manufacturer] : [count] }
+
+
 def get_counts_by_manufacturers(table):
-
-    # your code
-
-    pass
+    manufacturers = init_lists(table)[0]
+    count = init_lists(table)[2]
+    manufacturer_dict = dict(zip(manufacturers, count))
+    return manufacturer_dict
 
 
 # the question: What is the average amount of games in stock of a given manufacturer?
 # return type: number
 def get_average_by_manufacturer(table, manufacturer):
-
-    # your code
-
-    pass
+    manufacturers = init_lists(table)[0]
+    if manufacturer in manufacturers:
+        in_stock = init_lists(table)[1]
+        count = init_lists(table)[2]
+        for i, elem in enumerate(manufacturers):
+            if manufacturer == elem:
+                return in_stock[i] / count[i]
+    else:
+        raise ValueError

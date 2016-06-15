@@ -9,7 +9,6 @@
 import os
 import main
 import time
-import operator
 from importlib.machinery import SourceFileLoader
 current_file_path = os.path.dirname(os.path.abspath(__file__))
 # User interface module
@@ -50,7 +49,7 @@ def start_module():
         else:
             raise KeyError
     except KeyError:
-        ui.print_error_message("There is no such option.")
+        ui.print_error_message("There is no such option, choose from given numbers.")
         start_module()
     pass
 
@@ -103,15 +102,21 @@ def update(table, id_):
 # the question: Who is the oldest person ?
 # return type: list of strings (name or names if there are two more with the same value)
 def get_oldest_person(table):
-    date = []
-
-    pass
+    oldest_person = 0
+    birth_date = []
+    person = []
+    for sublist in table:
+        birth_date.append(int(sublist[2]))
+    oldest = min(birth_date)
+    for line in table:
+        if int(line[2]) == oldest:
+            person.append(line[1])
+    print(person)
+    return person
 
 
 # the question: Who is the closest to the average age ?
 # return type: list of strings (name or names if there are two more with the same value)
 def get_persons_closest_to_average(table):
-
-    # your code
 
     pass

@@ -8,7 +8,6 @@
 
 # importing everything you need
 import os
-import main
 from importlib.machinery import SourceFileLoader
 current_file_path = os.path.dirname(os.path.abspath(__file__))
 # User interface module
@@ -24,37 +23,40 @@ common = SourceFileLoader("common", current_file_path + "/../common.py").load_mo
 # we need to reach the default and the special functions of this module from the module menu
 #
 def start_module():
-    table = data_manager.get_table_from_file("crm/customers_test.csv")
-    options = ["1: Print default records",
-               "2: Add new record",
-               "3: Remove record by id",
-               "4: Update record by id",
-               "5: Customer with the longest name",
-               "6: Customers subscribed to the newsletter"]
+    table = data_manager.get_table_from_file("crm/customers.csv")
+    options = ["- Print default records",
+               "- Add new record",
+               "- Remove record by id",
+               "- Update record by id",
+               "- ID of customer with the longest name",
+               "- Customers subscribed to the newsletter"]
 
-    ui.print_menu("\nCustomer relationship management (CRM)\n", options, "0: Return to main menu\n")
+    ui.print_menu("\nCustomer relationship management (CRM)\n", options, "0 - Return to main menu\n")
     inputs = ui.get_inputs("Please enter a number: ", "")
     option = inputs[0]
-    try:
-        if option == "1":
-            show_table(table)
-        elif option == "2":
-            add(table)
-        elif option == "3":
-            remove(table, id_=ui.get_inputs("Plese enter the id of the record you'd like to remove: ", ""))
-        elif option == "4":
-            update(table, id_=common.generate_random(table))
-        elif option == "5":
-            get_longest_name_id(table)
-        elif option == "6":
-            get_subscribed_emails(table)
-        elif option == "0":
-            main.main()
-        else:
-            raise KeyError
-    except KeyError:
-        ui.print_error_message("\nThere is no such option.")
-        start_module()
+    while True:
+        try:
+            if option == "1":
+                show_table(table)
+            elif option == "2":
+                add(table)
+            elif option == "3":
+                remove(table, id_=ui.get_inputs("Enter the id of the record you'd like to remove: ", ""))
+            elif option == "4":
+                update(table, id_=ui.get_inputs("Enter the id of the record you'd like to update: ", ""))
+            elif option == "5":
+                ui.print_result(get_longest_name_id(table),
+                                "ID of the longest (alphabetical first, if there's more than one) name:")
+            elif option == "6":
+                ui.print_result(get_subscribed_emails(table), "Names and emails of newsletter subscribers")
+            elif option == "0":
+                break
+            else:
+                raise KeyError
+            break
+        except KeyError:
+            ui.print_error_message("\nThere is no such option.")
+            start_module()
     pass
 
 
@@ -73,7 +75,7 @@ def show_table(table):
 # @table: list of lists
 def add(table):
 
-    # your code
+    common.add_to_table(table, "crm/customers.csv")
 
     return table
 
@@ -84,7 +86,7 @@ def add(table):
 # @id_: string
 def remove(table, id_):
 
-    # your code
+    common.remove_form_table(table, "crm/customers.csv", id_)
 
     return table
 
@@ -96,7 +98,7 @@ def remove(table, id_):
 # @id_: string
 def update(table, id_):
 
-    # your code
+    common.update_the_table(table, "crm/customers.csv", id_)
 
     return table
 
@@ -108,16 +110,27 @@ def update(table, id_):
 # the question: What is the id of the customer with the longest name ?
 # return type: string (id) - if there are more than one longest name, return the first of descending alphabetical order
 def get_longest_name_id(table):
-
-    v
-
+    max_name_length = 0
+    longest_names = []
+    for i in table:
+        if len(i[1]) > max_name_length:
+            max_name_length = len(i[1])
+    for i in table:
+        if max_name_length == len(i[1]):
+            longest_names.append(i[1])
+    first_longest_name = min(longest_names)
+    for i in table:
+        if first_longest_name in i:
+            return i[0]
     pass
 
 
 # the question: Which customers has subscribed to the newsletter?
 # return type: list of string (where string is like email+separator+name, separator=";")
 def get_subscribed_emails(table):
-
-    # your code
-
+    subscribers = []
+    for i in table:
+        if i[3] == "1":
+            subscribers.append("{0};{1}".format(i[2], i[1]))
+    return subscribers
     pass
