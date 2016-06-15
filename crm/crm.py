@@ -45,9 +45,10 @@ def start_module():
             elif option == "4":
                 update(table, id_=ui.get_inputs("Enter the id of the record you'd like to update: ", ""))
             elif option == "5":
-                get_longest_name_id(table)
+                ui.print_result(get_longest_name_id(table),
+                                "ID of the longest (alphabetical first, if there's more than one) name:")
             elif option == "6":
-                get_subscribed_emails(table)
+                ui.print_result(get_subscribed_emails(table), "Names and emails of newsletter subscribers")
             elif option == "0":
                 break
             else:
@@ -120,7 +121,6 @@ def get_longest_name_id(table):
     first_longest_name = min(longest_names)
     for i in table:
         if first_longest_name in i:
-            # ui.print_result(i[0], "ID of the longest (alphabetical first, if there's more than one) name:")
             return i[0]
     pass
 
@@ -132,6 +132,5 @@ def get_subscribed_emails(table):
     for i in table:
         if i[3] == "1":
             subscribers.append("{0};{1}".format(i[2], i[1]))
-    # ui.print_result(subscribers, "Names and emails of newsletter subscribers")
     return subscribers
     pass
