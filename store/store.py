@@ -55,9 +55,12 @@ def start_module():
                 id_ = ui.get_inputs("Enter what you want to update(id):", "")
                 update(table, id_)
             elif option == "5":
-                get_counts_by_manufacturers(table)
+                result = get_counts_by_manufacturers(table)
+                ui.print_result(result, "Available kinds of games by manufacturers")
             elif option == "6":
-                get_average_by_manufacturer(table)
+                manufacturer = ui.get_inputs(["Please enter a manufacturer: "], "")[0]
+                result = get_average_by_manufacturer(table, manufacturer)
+                ui.print_result(result, "Average amount of games in stock of the manufacturer")
             elif option == "0":
                 back_to_main = 1
             else:
@@ -111,19 +114,39 @@ def update(table, id_):
 # special functions:
 # ------------------
 
+def init_lists(table):
+    manufacturers = []
+    for row in table:
+        for i, item in enumerate(row):
+            if i == 2 and item not in manufacturers:
+                manufacturers.append(item)
+    in_stock = [0] * len(manufacturers)
+    count = [0] * len(manufacturers)
+    for row in table:
+        for j, elem in enumerate(manufacturers):
+            for i, item in enumerate(row):
+                if i == 2 and item == elem:
+                    in_stock[j] += int(row[4])
+                    count[j] += 1
+    lists = [manufacturers, in_stock, count]
+    return lists
 # the question: How many different kinds of game are available of each manufacturer?
 # return type: a dictionary with this structure: { [manufacturer] : [count] }
+
+
 def get_counts_by_manufacturers(table):
-
-    # your code
-
-    pass
+    manufacturers = init_lists(table)[0]
+    count = init_lists(table)[2]
+    manufacturer_dict = dict(zip(manufacturers, count))
+    return manufacturer_dict
 
 
 # the question: What is the average amount of games in stock of a given manufacturer?
 # return type: number
 def get_average_by_manufacturer(table, manufacturer):
-
-    # your code
-
-    pass
+    manufacturers = init_lists(table)[0]
+    in_stock = init_lists(table)[1]
+    count = init_lists(table)[2]
+    for j, elem in enumerate(manufacturers):
+        average = in_stock[j] / count[j]
+        return average

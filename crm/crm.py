@@ -41,9 +41,9 @@ def start_module():
             elif option == "2":
                 add(table)
             elif option == "3":
-                remove(table, id_=ui.get_inputs("Plese enter the id of the record you'd like to remove: ", ""))
+                remove(table, id_=ui.get_inputs("Enter the id of the record you'd like to remove: ", ""))
             elif option == "4":
-                update(table, id_=common.generate_random(table))
+                update(table, id_=ui.get_inputs("Enter the id of the record you'd like to update: ", ""))
             elif option == "5":
                 get_longest_name_id(table)
             elif option == "6":
@@ -74,7 +74,7 @@ def show_table(table):
 # @table: list of lists
 def add(table):
 
-    # your code
+    common.add_to_table(table, "crm/customers_test.csv")
 
     return table
 
@@ -85,7 +85,7 @@ def add(table):
 # @id_: string
 def remove(table, id_):
 
-    # your code
+    common.remove_form_table(table, "crm/customers_test.csv", id_)
 
     return table
 
@@ -97,7 +97,7 @@ def remove(table, id_):
 # @id_: string
 def update(table, id_):
 
-    # your code
+    common.update_the_table(table, "crm/customers_test.csv", id_)
 
     return table
 
@@ -109,25 +109,29 @@ def update(table, id_):
 # the question: What is the id of the customer with the longest name ?
 # return type: string (id) - if there are more than one longest name, return the first of descending alphabetical order
 def get_longest_name_id(table):
-    name_lengths = []
+    max_name_length = 0
     longest_names = []
     for i in table:
-        name_lengths.append(len(i[1]))
-    max_name_length = max(name_lengths)
-    for i, j in enumerate(name_lengths):
-        if max_name_length == j:
-            longest_names.append(table[i][1])
+        if len(i[1]) > max_name_length:
+            max_name_length = len(i[1])
+    for i in table:
+        if max_name_length == len(i[1]):
+            longest_names.append(i[1])
     first_longest_name = min(longest_names)
     for i in table:
         if first_longest_name in i:
             ui.print_result(i[0], "ID of the longest (alphabetical first, if there's more than one) name:")
+            return i[0]
     pass
 
 
 # the question: Which customers has subscribed to the newsletter?
 # return type: list of string (where string is like email+separator+name, separator=";")
 def get_subscribed_emails(table):
-
-    # your code
-
+    subscribers = []
+    for i in table:
+        if i[3] == "0":
+            subscribers.append("{0};{1}".format(i[2], i[1]))
+    ui.print_result(subscribers, "Names and emails of newsletter subscribers")
+    return subscribers
     pass
