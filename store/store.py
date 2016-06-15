@@ -38,7 +38,7 @@ def handle_menu():
 
 def start_module():
     handle_menu()
-    inputs = ui.get_inputs(["Please enter a number: "], "")
+    inputs = ui.get_inputs("Please enter a number: ", "")
     table = data_manager.get_table_from_file("store/games.csv")
     option = inputs[0]
     back_to_main = 0
@@ -58,9 +58,8 @@ def start_module():
                 result = get_counts_by_manufacturers(table)
                 ui.print_result(result, "Available kinds of games by manufacturers")
             elif option == "6":
-                manufacturer = ui.get_inputs(["Please enter a manufacturer: "], "")[0]
-                result = get_average_by_manufacturer(table, manufacturer)
-                ui.print_result(result, "Average amount of games in stock of the manufacturer")
+                manufacturer = ui.get_inputs("Please enter a manufacturer: ", "")
+                get_average_by_manufacturer(table, manufacturer)
             elif option == "0":
                 back_to_main = 1
             else:
@@ -69,7 +68,6 @@ def start_module():
         except KeyError:
             ui.print_error_message("There's no such option.")
             start_module()
-
 
 # print the default table of records from the file
 #
@@ -145,8 +143,16 @@ def get_counts_by_manufacturers(table):
 # return type: number
 def get_average_by_manufacturer(table, manufacturer):
     manufacturers = init_lists(table)[0]
-    in_stock = init_lists(table)[1]
-    count = init_lists(table)[2]
-    for j, elem in enumerate(manufacturers):
-        average = in_stock[j] / count[j]
-        return average
+    try:
+        if manufacturer in manufacturers:
+            in_stock = init_lists(table)[1]
+            count = init_lists(table)[2]
+            for i, elem in enumerate(manufacturers):
+                if manufacturer == elem:
+                    ui.print_result(in_stock[i] / count[i], "Average amount of games in stock of the manufacturer")
+                    return in_stock[i] / count[i]
+        else:
+            raise ValueError
+    except ValueError:
+        ui.print_error_message("There's no such manufacturer.")
+        start_module()
