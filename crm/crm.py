@@ -130,7 +130,7 @@ def get_longest_name_id(table):
 def get_subscribed_emails(table):
     subscribers = []
     for i in table:
-        if i[3] == "0":
+        if i[3] == "1":
             subscribers.append("{0};{1}".format(i[2], i[1]))
     ui.print_result(subscribers, "Names and emails of newsletter subscribers")
     return subscribers
