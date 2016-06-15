@@ -27,7 +27,7 @@ list1 = ''
 
 
 def start_module():
-    ui.print_menu("Human Resources", ["show", "add", "remove", "update", "oldest"], "0 exit")
+    ui.print_menu("Human Resources", ["show", "add", "remove", "update", "oldest", "average"], "0 exit")
     inputs = ui.get_inputs(["Please enter a number: "], "")
     option = inputs[0]
     table = data_manager.get_table_from_file("hr/persons.csv")
@@ -44,8 +44,8 @@ def start_module():
             update(table, id_)
         elif option == "5":
             get_oldest_person(table)
-        # elif option == "6":
-        #     get_persons_closest_to_average(table)
+        elif option == "6":
+            get_persons_closest_to_average(table)
         elif option == "0":
             main.main()
         else:
@@ -119,5 +119,37 @@ def get_oldest_person(table):
 # the question: Who is the closest to the average age ?
 # return type: list of strings (name or names if there are two more with the same value)
 def get_persons_closest_to_average(table):
+    name = []
+    year = []
+    total = 0
+    nr_people = 0
+    for row in table:
+        nr_people += 1
+        total = total + int(row[2])
+        name.append(row[1])
+        year.append(int(row[2]))
+    average = total/nr_people
+    final = []
+    difference = []
+    for element in year:
+        if element < average:
+            difference.append(average - element)
+        elif element > average:
+            difference.append(element - average)
+        else:
+            difference.append(0)
+    mini = None
+    for element in difference:
+        if mini is None:
+            mini = element
+        if mini > element:
+            mini = element
+    i = 0
+    for elem in difference:
+        if mini == elem:
+            final.append(name[i])
+        i += 1
+    print(final)
+    return final
 
-    pass
+    # pass
