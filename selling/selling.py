@@ -108,11 +108,18 @@ def update(table, id_):
 # return type: string (id)
 # if there are more than one with the lowest price, return the first of descending alphabetical order
 def get_lowest_price_item_id(table):
-    lowest_price = 0
-    for i in range(len(table)):
-        if int(table[i][2]) > lowest_price:
-            lowest_price = int(table[i][2])
-    print(lowest_price)
+    lowest_priced_items = {}
+    for line in table:
+        if int(line[2]) in lowest_priced_items:
+            lowest_priced_items[int(line[2])].append(line[0])
+        else:
+            lowest_priced_items[int(line[2])] = [line[0]]
+    lowest_priced_item = min(lowest_priced_items.items())
+    if len(lowest_priced_item[1]) > 1:
+        lowest_priced_item = min(lowest_priced_item[1])
+    else:
+        lowest_priced_item = lowest_priced_item[1][0]
+    return lowest_priced_item
     pass
 
 
