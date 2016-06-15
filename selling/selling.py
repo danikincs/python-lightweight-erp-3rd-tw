@@ -52,7 +52,12 @@ def start_module():
             get_lowest_price_item_id(table)
         elif option == "6":
             get_items_sold_between \
-            (table, month_from, day_from, year_from, month_to, day_to, year_to)
+            (table, month_from = ui.get_inputs("Enter the starting month:", ""), \
+            day_from = ui.get_inputs("Enter the starting day:", ""), \
+            year_from = ui.get_inputs("Enter the starting year:", ""), \
+            month_to = ui.get_inputs("Enter the ending month:", ""), \
+            day_to = ui.get_inputs("Enter the ending day:", ""), \
+            year_to = ui.get_inputs("Enter the ending year:", ""))
         elif option == "0":
             main.main()
         else:
@@ -120,13 +125,22 @@ def get_lowest_price_item_id(table):
     else:
         lowest_priced_item = lowest_priced_item[1][0]
     return lowest_priced_item
-    pass
 
 
 # the question: Which items are sold between two given dates ? (from_date < birth_date < to_date)
 # return type: list of lists (the filtered table)
 def get_items_sold_between(table, month_from, day_from, year_from, month_to, day_to, year_to):
-
-    # your code
+    # year_from = ui.get_inputs("Enter the starting year:", "")
+    # month_from = ui.get_inputs("Enter the starting month:", "")
+    # day_from = ui.get_inputs("Enter the starting day:", "")
+    # year_to = ui.get_inputs("Enter the ending year:", "")
+    # month_to = ui.get_inputs("Enter the ending month:", "")
+    # day_to = ui.get_inputs("Enter the ending day:", "")
+    list_ = []
+    for line in table:
+        if int(year_from + month_from + day_from) < int(line[5] + line[3] + line[4]) and \
+        int(year_to + month_to + day_to) > int(line[5] + line[3] + line[4]):
+            list_.append([line[3], line[4], line[5], line[1]])
+    return list_
 
     pass
