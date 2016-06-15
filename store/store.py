@@ -59,7 +59,12 @@ def start_module():
                 ui.print_result(result, "Available kinds of games by manufacturers")
             elif option == "6":
                 manufacturer = ui.get_inputs("Please enter a manufacturer: ", "")
-                get_average_by_manufacturer(table, manufacturer)
+                try:
+                    result = get_average_by_manufacturer(table, manufacturer)
+                    ui.print_result(result, "Average amount of games in stock of the manufacturer")
+                except ValueError:
+                    ui.print_error_message("There's no such manufacturer.")
+                    start_module()
             elif option == "0":
                 back_to_main = 1
             else:
@@ -72,6 +77,8 @@ def start_module():
 # print the default table of records from the file
 #
 # @table: list of lists
+
+
 def show_table(table):
     title_list = ['id', 'title', 'manufacturer', 'price', 'in_stock']
     ui.print_table(table, title_list)
@@ -143,16 +150,11 @@ def get_counts_by_manufacturers(table):
 # return type: number
 def get_average_by_manufacturer(table, manufacturer):
     manufacturers = init_lists(table)[0]
-    try:
-        if manufacturer in manufacturers:
-            in_stock = init_lists(table)[1]
-            count = init_lists(table)[2]
-            for i, elem in enumerate(manufacturers):
-                if manufacturer == elem:
-                    ui.print_result(in_stock[i] / count[i], "Average amount of games in stock of the manufacturer")
-                    return in_stock[i] / count[i]
-        else:
-            raise ValueError
-    except ValueError:
-        ui.print_error_message("There's no such manufacturer.")
-        start_module()
+    if manufacturer in manufacturers:
+        in_stock = init_lists(table)[1]
+        count = init_lists(table)[2]
+        for i, elem in enumerate(manufacturers):
+            if manufacturer == elem:
+                return in_stock[i] / count[i]
+    else:
+        raise ValueError

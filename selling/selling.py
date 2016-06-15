@@ -52,7 +52,12 @@ def start_module():
             get_lowest_price_item_id(table)
         elif option == "6":
             get_items_sold_between \
-            (table, month_from, day_from, year_from, month_to, day_to, year_to)
+            (table, month_from = ui.get_inputs("Enter the starting month:", ""), \
+            day_from = ui.get_inputs("Enter the starting day:", ""), \
+            year_from = ui.get_inputs("Enter the starting year:", ""), \
+            month_to = ui.get_inputs("Enter the ending month:", ""), \
+            day_to = ui.get_inputs("Enter the ending day:", ""), \
+            year_to = ui.get_inputs("Enter the ending year:", ""))
         elif option == "0":
             main.main()
         else:
@@ -108,18 +113,34 @@ def update(table, id_):
 # return type: string (id)
 # if there are more than one with the lowest price, return the first of descending alphabetical order
 def get_lowest_price_item_id(table):
-    lowest_price = 0
-    for i in range(len(table)):
-        if int(table[i][2]) > lowest_price:
-            lowest_price = int(table[i][2])
-    print(lowest_price)
-    pass
+    lowest_priced_items = {}
+    for line in table:
+        if int(line[2]) in lowest_priced_items:
+            lowest_priced_items[int(line[2])].append(line[0])
+        else:
+            lowest_priced_items[int(line[2])] = [line[0]]
+    lowest_priced_item = min(lowest_priced_items.items())
+    if len(lowest_priced_item[1]) > 1:
+        lowest_priced_item = min(lowest_priced_item[1])
+    else:
+        lowest_priced_item = lowest_priced_item[1][0]
+    return lowest_priced_item
 
 
 # the question: Which items are sold between two given dates ? (from_date < birth_date < to_date)
 # return type: list of lists (the filtered table)
 def get_items_sold_between(table, month_from, day_from, year_from, month_to, day_to, year_to):
-
-    # your code
+    # year_from = ui.get_inputs("Enter the starting year:", "")
+    # month_from = ui.get_inputs("Enter the starting month:", "")
+    # day_from = ui.get_inputs("Enter the starting day:", "")
+    # year_to = ui.get_inputs("Enter the ending year:", "")
+    # month_to = ui.get_inputs("Enter the ending month:", "")
+    # day_to = ui.get_inputs("Enter the ending day:", "")
+    list_ = []
+    for line in table:
+        if int(year_from + month_from + day_from) < int(line[5] + line[3] + line[4]) and \
+        int(year_to + month_to + day_to) > int(line[5] + line[3] + line[4]):
+            list_.append([line[3], line[4], line[5], line[1]])
+    return list_
 
     pass
