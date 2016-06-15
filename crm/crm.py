@@ -120,7 +120,7 @@ def get_longest_name_id(table):
     first_longest_name = min(longest_names)
     for i in table:
         if first_longest_name in i:
-            ui.print_result(i[0], "ID of the longest (alphabetical first, if there's more than one) name:")
+            # ui.print_result(i[0], "ID of the longest (alphabetical first, if there's more than one) name:")
             return i[0]
     pass
 
@@ -132,6 +132,6 @@ def get_subscribed_emails(table):
     for i in table:
         if i[3] == "1":
             subscribers.append("{0};{1}".format(i[2], i[1]))
-    ui.print_result(subscribers, "Names and emails of newsletter subscribers")
+    # ui.print_result(subscribers, "Names and emails of newsletter subscribers")
     return subscribers
     pass
