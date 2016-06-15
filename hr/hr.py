@@ -103,9 +103,7 @@ def update(table, id_):
 # the question: Who is the oldest person ?
 # return type: list of strings (name or names if there are two more with the same value)
 def get_oldest_person(table):
-    date = []
-
-    pass
+    birth_date = []
 
 
 # the question: Who is the closest to the average age ?
