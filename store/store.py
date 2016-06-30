@@ -90,7 +90,7 @@ def show_table(table):
 #
 # @table: list of lists
 def add(table):
-    common.add_to_table(table, "store/store.csv")
+    common.add_to_table(table, "store/games.csv")
 
     return table
 
@@ -100,7 +100,7 @@ def add(table):
 # @table: list of lists
 # @id_: string
 def remove(table, id_):
-    common.remove_form_table(table, "store/store.csv", id_)
+    common.remove_form_table(table, "store/games.csv", id_)
 
     return table
 
@@ -111,7 +111,7 @@ def remove(table, id_):
 # @table: list of lists
 # @id_: string
 def update(table, id_):
-    common.update_the_table(table, "store/store.csv", id_)
+    common.update_the_table(table, "store/games.csv", id_)
 
     return table
 
