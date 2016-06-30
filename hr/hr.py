@@ -149,7 +149,6 @@ def get_persons_closest_to_average(table):
         if mini == elem:
             final.append(name[i])
         i += 1
-    print(final)
     return final
 
     # pass
